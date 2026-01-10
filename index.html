@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIT Hamirpur | Campus</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:#000;
+    color:#e5e5e5;
+    overflow-x:hidden;
+}
+
+/* ================= LOADER ================= */
+.loader{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    overflow:hidden;
+}
+.loader h2{
+    letter-spacing:2px;
+    font-size:16px;
+    opacity:.9;
+    margin-bottom:20px;
+    text-shadow:0 0 10px rgba(255,255,255,.5);
+    animation:glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow{
+    from{text-shadow:0 0 10px rgba(255,255,255,.5);}
+    to{text-shadow:0 0 20px rgba(255,255,255,.8), 0 0 30px rgba(255,255,255,.6);}
+}
+.progress-box{
+    width:350px;
+    height:8px;
+    background:#111;
+    border:1px solid #333;
+    border-radius:4px;
+    overflow:hidden;
+    box-shadow:inset 0 0 10px rgba(0,0,0,.5);
+}
+.progress-fill{
+    height:100%;
+    width:0%;
+    background:linear-gradient(90deg,#777,#fff,#777);
+    box-shadow:0 0 10px rgba(255,255,255,.3);
+    animation:pulse 1s ease-in-out infinite;
+}
+@keyframes pulse{
+    0%,100%{box-shadow:0 0 10px rgba(255,255,255,.3);}
+    50%{box-shadow:0 0 20px rgba(255,255,255,.5);}
+}
+.percent{
+    margin-top:15px;
+    font-size:14px;
+    opacity:.8;
+    text-shadow:0 0 5px rgba(255,255,255,.5);
+}
+
+/* ================= BACKGROUND ================= */
+.bg-image{
+    position:fixed;
+    inset:0;
+    background:url("./folder/WhatsApp_Image_2025-12-23_at_8.05.07_PM.jpeg") center/cover no-repeat;
+    filter:brightness(1.15) contrast(1.05) grayscale(0.1);
+    z-index:-6;
+    animation:bgZoom 15s ease-in-out infinite alternate; /* New animation */
+}
+@keyframes bgZoom{
+    from{transform:scale(1);}
+    to{transform:scale(1.1);}
+}
+
+.overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:-5;
+}
+
+/* ================= TECH ANIMATION ================= */
+.hex-layer{
+    position:fixed;
+    inset:0;
+    background:
+        repeating-linear-gradient(60deg,rgba(255,255,255,.08) 0 2px,transparent 2px 60px),
+        repeating-linear-gradient(-60deg,rgba(255,255,255,.08) 0 2px,transparent 2px 60px);
+    animation:hexMove 6s linear infinite;
+    z-index:-4;
+}
+@keyframes hexMove{
+    from{background-position:0 0,0 0}
+    to{background-position:120px 120px,-120px 120px}
+}
+
+.energy-wave{
+    position:fixed;
+    inset:-40%;
+    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);
+    animation:wave 4s linear infinite;
+    z-index:-3;
+}
+@keyframes wave{
+    from{transform:translateX(-40%)}
+    to{transform:translateX(40%)}
+}
+
+/* Additional Lighting Effects - Subtle Particles */
+.particle-container{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-2;
+}
+.particle{
+    position:absolute;
+    width:1px;
+    height:1px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.4;
+    animation:particleFloat 12s linear infinite;
+}
+@keyframes particleFloat{
+    from{transform:translateY(100vh) rotate(0deg); opacity:.4;}
+    to{transform:translateY(-100px) rotate(360deg); opacity:0;}
+}
+
+/* ================= HERO ================= */
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    perspective:1200px;
+    text-align:center;
+}
+
+/* ================= METALLIC 3D TEXT ================= */
+.title-3d{
+    position:relative;
+    font-size:48px;
+    font-weight:700;
+    transform-style:preserve-3d;
+    text-shadow:0 30px 60px rgba(0,0,0,.9);
+    animation:textGlow 3s ease-in-out infinite alternate;
+}
+@keyframes textGlow{
+    from{text-shadow:0 30px 60px rgba(0,0,0,.9);}
+    to{text-shadow:0 30px 60px rgba(0,0,0,.9), 0 0 20px rgba(255,255,255,.2);}
+}
+.title-3d span{position:absolute;inset:0}
+
+.title-3d .front{
+    position:relative;
+    background:linear-gradient(120deg,#f0f0f0,#bfbfbf 45%,#fff 60%,#9a9a9a);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    transform:translateZ(40px);
+}
+.title-3d .d1{color:#9a9a9a;transform:translateZ(25px)}
+.title-3d .d2{color:#6a6a6a;transform:translateZ(10px)}
+.title-3d .d3{color:#2a2a2a;transform:translateZ(0)}
+
+.hero p{
+    margin-top:20px;
+    opacity:.8;
+    font-size:18px;
+    text-shadow:0 0 10px rgba(255,255,255,.5);
+}
+
+/* ================= CONTENT ================= */
+.spacer{height:40vh}
+
+.section{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.academic{
+    max-width:1000px;
+    width:100%;
+    position:relative;
+    opacity:0;
+    transform:translateY(100px);
+    transition:1.2s cubic-bezier(.19,1,.22,1);
+}
+.academic.show{
+    opacity:1;
+    transform:none;
+}
+.academic img{
+    width:100%;
+    border-radius:16px;
+    box-shadow:0 40px 80px rgba(0,0,0,.7), 0 0 20px rgba(255,255,255,.1);
+}
+
+/* ================= HIGH-TECH BUTTON ================= */
+.tech-btn{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    padding:14px 42px;
+    color:#fff;
+    text-decoration:none;
+    letter-spacing:1.5px;
+    font-size:16px;
+    font-weight:600;
+    border:1px solid rgba(255,255,255,.6);
+    background:rgba(0,0,0,.6);
+    overflow:hidden;
+    transition:.4s;
+    box-shadow:0 0 15px rgba(255,255,255,.2);
+}
+
+/* SCAN LINE */
+.tech-btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);
+    transform:translateX(-100%);
+    animation:scanBtn 3s linear infinite;
+}
+@keyframes scanBtn{
+    from{transform:translateX(-100%)}
+    to{transform:translateX(100%)}
+}
+
+/* HOVER */
+.tech-btn:hover{
+    box-shadow:0 0 30px rgba(255,255,255,.4), inset 0 0 20px rgba(255,255,255,.1);
+    transform:translate(-50%,-50%) scale(1.1);
+    background:rgba(0,0,0,.8);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .tech-btn{
+        opacity:1;
+        transform:translate(-50%,-50%);
+    }
+    .title-3d{
+        font-size:36px;
+    }
+    .hero p{
+        font-size:16px;
+    }
+}
+
+/* ================= FOOTER ================= */
+.site-footer{
+    text-align:center;
+    padding:30px;
+    opacity:.6;
+    text-shadow:0 0 5px rgba(255,255,255,.3);
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+    <h2>BOOTING CAMPUS SYSTEM</h2>
+    <div class="progress-box">
+        <div class="progress-fill" id="bar"></div>
+    </div>
+    <div class="percent" id="percent">0%</div>
+</div>
+
+<!-- BACKGROUND -->
+<div class="bg-image"></div>
+<div class="overlay"></div>
+<div class="hex-layer"></div>
+<div class="energy-wave"></div>
+
+<!-- PARTICLE EFFECTS -->
+<div class="particle-container" id="particles"></div>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="title-3d" id="title3d">
+        <span class="d3">National Institute of Technology Hamirpur</span>
+        <span class="d2">National Institute of Technology Hamirpur</span>
+        <span class="d1">National Institute of Technology Hamirpur</span>
+        <span class="front">National Institute of Technology Hamirpur</span>
+    </div>
+    <p>Scroll to explore campus</p>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ACADEMIC SECTION -->
+<section class="section">
+    <div class="academic" id="academic">
+        <img src="./folder/Screenshot_2025-12-23_183350.png" alt="Academic Block">
+        <!-- 🔘 REDIRECT BUTTON -->
+        <a href="cg_calculator.html" class="tech-btn">
+            OPEN CG CALCULATOR →
+        </a>
+    </div>
+</section>
+
+<footer class="site-footer">
+    © 2026 25BCE1**. All Rights Reserved.
+</footer>
+
+<script>
+/* LOADER */
+let load=0;
+const bar=document.getElementById("bar");
+const percent=document.getElementById("percent");
+const loader=document.getElementById("loader");
+
+const interval=setInterval(()=>{
+    load+=Math.random()*10 + 2; // Random increment for realism
+    if(load>100) load=100;
+    bar.style.width=load+"%";
+    percent.textContent=Math.floor(load)+"%";
+    if(load>=100){
+        clearInterval(interval);
+        setTimeout(()=>{loader.style.display="none";},500);
+    }
+},80);
+
+/* PARTICLE EFFECTS */
+const particlesContainer=document.getElementById("particles");
+for(let i=0;i<50;i++){
+    const particle=document.createElement("div");
+    particle.className="particle";
+    particle.style.left=Math.random()*100+"%";
+    particle.style.animationDelay=Math.random()*10+"s";
+    particlesContainer.appendChild(particle);
+}
+
+/* SCROLL REVEAL */
+const academic=document.getElementById("academic");
+window.addEventListener("scroll",()=>{
+    if(academic.getBoundingClientRect().top < window.innerHeight-120){
+        academic.classList.add("show");
+    }
+});
+
+/* 3D TEXT TILT */
+const title=document.getElementById("title3d");
+document.addEventListener("mousemove",e=>{
+    const x=(e.clientX/window.innerWidth-.5)*15;
+    const y=(e.clientY/window.innerHeight-.5)*15;
+    title.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SGPI / CGPI Calculator | NITH</title>
+
+<style>
+:root{
+    --bg:#0b1220;
+    --card:#ffffff;
+    --text:#111;
+    --accent:#1e3a8a;
+    --accent-soft:#e8ecf8;
+}
+
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    min-height:100vh;
+    font-family:"Segoe UI", Arial, sans-serif;
+    background:var(--bg);
+    color:#fff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+
+/* subtle noise */
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events:none;
+}
+
+.container{
+    width:95%;
+    max-width:720px;
+    background:var(--card);
+    color:var(--text);
+    padding:28px;
+    border-radius:18px;
+    box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+h2{
+    text-align:center;
+    color:var(--accent);
+    margin-bottom:16px;
+}
+
+label{
+    font-weight:600;
+    margin-top:12px;
+    display:block;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    border-radius:6px;
+    border:1px solid #cbd5e1;
+}
+
+button{
+    width:100%;
+    margin-top:18px;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:var(--accent);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+button:hover{background:#16317a}
+
+.result{
+    margin-top:20px;
+    padding:18px;
+    background:var(--accent-soft);
+    border-radius:12px;
+    display:none;
+}
+
+.result h3{
+    margin:6px 0;
+    color:var(--accent);
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:#c7d2fe;
+    border-radius:10px;
+    overflow:hidden;
+}
+.progress span{
+    height:100%;
+    display:block;
+    width:0;
+    background:var(--accent);
+    transition:1s;
+}
+
+.cgpi-box{
+    margin-top:14px;
+    display:none;
+}
+
+footer{
+    margin-top:18px;
+    opacity:.7;
+}
+
+@media print{
+    body{background:white;color:black}
+    body::after{display:none}
+    button{display:none}
+    .container{box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>SGPI / CGPI Calculator</h2>
+
+<label>Select Semester</label>
+<select id="semester" onchange="switchSem()">
+    <option value="1">Semester 1</option>
+    <option value="2">Semester 2</option>
+</select>
+
+<!-- SEM 1 -->
+<div id="sem1">
+    <label>Mechanical</label><input id="mmec" type="number">
+    <label>Maths</label><input id="mma" type="number">
+    <label>Physics</label><input id="mph" type="number">
+    <label>Communication</label><input id="mco" type="number">
+    <label>Ethics</label><input id="meth" type="number">
+    <label>Mech Lab</label><input id="mmlab" type="number">
+    <label>CS Lab</label><input id="mclab" type="number">
+    <label>Phy Lab</label><input id="mplab" type="number">
+    <label>Comm Lab</label><input id="mcolab" type="number">
+</div>
+
+<!-- SEM 2 -->
+<div id="sem2" style="display:none;">
+    <label>Maths</label><input id="ma121" type="number">
+    <label>Chemistry</label><input id="cy101" type="number">
+    <label>CS</label><input id="cs121" type="number">
+    <label>BEE</label><input id="ee101" type="number">
+    <label>Electronics</label><input id="ec101" type="number">
+    <label>ENLS</label><input id="en101" type="number">
+    <label>Entrepreneurship</label><input id="mb101" type="number">
+    <label>Engineering Graphics</label><input id="eg" type="number">
+    <label>Chem Lab</label><input id="cy102" type="number">
+    <label>EE Lab</label><input id="ee102" type="number">
+</div>
+
+<button onclick="calculateSGPI()">Calculate SGPI</button>
+
+<div class="result" id="result">
+    <h3 id="sgpiText"></h3>
+    <div class="progress"><span id="bar"></span></div>
+
+    <!-- CGPI SECTION -->
+    <div class="cgpi-box" id="cgpiBox">
+        <label>Previous CGPI</label>
+        <input id="prevCgpi" type="number" step="0.01">
+
+        <label>Completed Semesters (before this)</label>
+        <input id="prevSem" type="number">
+
+        <button onclick="calculateCGPI()">Calculate New CGPI</button>
+        <h3 id="cgpiText"></h3>
+    </div>
+
+    <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+</div>
+
+<footer>© 2026 25BCE1**. All Rights Reserved.</footer>
+
+<script>
+function grade(m){
+    if(m>=85)return 10;
+    if(m>=75)return 9;
+    if(m>=65)return 8;
+    if(m>=55)return 7;
+    if(m>=50)return 6;
+    if(m>=45)return 5;
+    if(m>=40)return 4;
+    return 0;
+}
+
+function switchSem(){
+    sem1.style.display = semester.value=="1" ? "block" : "none";
+    sem2.style.display = semester.value=="2" ? "block" : "none";
+    result.style.display="none";
+}
+
+let currentSGPI = 0;
+
+function calculateSGPI(){
+    let c1={mmec:3,mma:3,mph:3,mco:2,meth:2,mmlab:2,mclab:3,mplab:1,mcolab:1};
+    let c2={ma121:3,cy101:3,cs121:3,ee101:2,ec101:2,en101:2,mb101:1,eg:2,cy102:1,ee102:1};
+    let c=semester.value=="1"?c1:c2;
+
+    let total=0,cr=0;
+    for(let i in c){
+        let v=document.getElementById(i).value;
+        if(v==="") return alert("Fill all marks");
+        total+=grade(v)*c[i];
+        cr+=c[i];
+    }
+
+    currentSGPI = (total/cr).toFixed(2);
+    sgpiText.innerHTML = `SGPI (Semester ${semester.value}) : ${currentSGPI}`;
+    bar.style.width = (currentSGPI/10)*100 + "%";
+
+    result.style.display="block";
+    cgpiBox.style.display="block";
+}
+
+function calculateCGPI(){
+    let prevCg = Number(prevCgpi.value);
+    let prevS = Number(prevSem.value);
+
+    if(!prevCg || !prevS){
+        return alert("Enter previous CGPI and semesters");
+    }
+
+    let newCgpi = ((prevCg * prevS + Number(currentSGPI)) / (prevS + 1)).toFixed(2);
+    cgpiText.innerHTML = `Updated CGPI : ${newCgpi}`;
+}
+</script>
+
+</body>
+</html>
