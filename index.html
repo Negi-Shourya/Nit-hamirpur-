@@ -15,7 +15,7 @@ body{
     overflow-x:hidden;
 }
 
-/* ================= VIDEO BACKGROUND ================= */
+
 .video-bg{
     position:fixed;
     inset:0;
@@ -29,7 +29,7 @@ body{
     filter:brightness(0.55) contrast(1.05);
 }
 
-/* DARK OVERLAY FOR READABILITY */
+
 .video-overlay{
     position:fixed;
     inset:0;
@@ -37,7 +37,6 @@ body{
     z-index:-4;
 }
 
-/* ================= LOADER ================= */
 .loader{
     position:fixed;
     inset:0;
@@ -78,7 +77,7 @@ body{
     opacity:.8;
 }
 
-/* ================= HERO ================= */
+
 .hero{
     height:100vh;
     display:flex;
@@ -89,7 +88,6 @@ body{
     text-align:center;
 }
 
-/* ================= METALLIC 3D TEXT ================= */
 .title-3d{
     position:relative;
     font-size:48px;
@@ -117,7 +115,7 @@ body{
     font-size:18px;
 }
 
-/* ================= CONTENT ================= */
+
 .spacer{height:40vh}
 
 .section{
@@ -145,7 +143,7 @@ body{
     box-shadow:0 40px 80px rgba(0,0,0,.85);
 }
 
-/* ================= BUTTON ================= */
+
 .tech-btn{
     position:absolute;
     top:50%;
@@ -178,14 +176,13 @@ body{
     box-shadow:0 0 25px rgba(255,255,255,.4);
 }
 
-/* ================= FOOTER ================= */
+
 .site-footer{
     text-align:center;
     padding:28px;
     opacity:.6;
 }
 
-/* ================= MOBILE ================= */
 @media(max-width:768px){
     .title-3d{font-size:34px}
     .hero p{font-size:16px}
@@ -195,7 +192,6 @@ body{
 
 <body>
 
-<!-- VIDEO BACKGROUND -->
 <div class="video-bg">
     <video autoplay muted loop playsinline>
         <source src="Logo.mp4" type="video/mp4">
@@ -203,7 +199,7 @@ body{
 </div>
 <div class="video-overlay"></div>
 
-<!-- LOADER -->
+
 <div class="loader" id="loader">
     <h2>BOOTING CAMPUS SYSTEM</h2>
     <div class="progress-box">
@@ -212,7 +208,6 @@ body{
     <div class="percent" id="percent">0%</div>
 </div>
 
-<!-- HERO -->
 <section class="hero">
     <div class="title-3d" id="title3d">
         <span class="d3">National Institute of Technology Hamirpur</span>
@@ -225,7 +220,7 @@ body{
 
 <div class="spacer"></div>
 
-<!-- ACADEMIC -->
+
 <section class="section">
     <div class="academic" id="academic">
         <img src="Screenshot 2025-12-23 183350.png" alt="Academic Block">
@@ -238,7 +233,7 @@ body{
 </footer>
 
 <script>
-/* ================= LOADER ================= */
+
 let load = 0;
 const bar = document.getElementById("bar");
 const percent = document.getElementById("percent");
@@ -262,7 +257,6 @@ const loaderInterval = setInterval(() => {
     }
 }, 80);
 
-/* FAILSAFE */
 window.addEventListener("load", () => {
     setTimeout(() => {
         if (loader) {
@@ -272,7 +266,7 @@ window.addEventListener("load", () => {
     }, 1200);
 });
 
-/* SCROLL REVEAL */
+
 const academic = document.getElementById("academic");
 window.addEventListener("scroll", () => {
     if (academic.getBoundingClientRect().top < window.innerHeight - 120) {
@@ -280,7 +274,7 @@ window.addEventListener("scroll", () => {
     }
 });
 
-/* 3D TEXT TILT */
+
 const title = document.getElementById("title3d");
 document.addEventListener("mousemove", e => {
     const x = (e.clientX / window.innerWidth - 0.5) * 15;
@@ -291,6 +285,7 @@ document.addEventListener("mousemove", e => {
 
 </body>
 </html>
+
 
 
 
