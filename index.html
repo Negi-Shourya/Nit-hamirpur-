@@ -15,6 +15,28 @@ body{
     overflow-x:hidden;
 }
 
+/* ================= VIDEO BACKGROUND ================= */
+.video-bg{
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    overflow:hidden;
+}
+.video-bg video{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:brightness(0.55) contrast(1.05);
+}
+
+/* DARK OVERLAY FOR READABILITY */
+.video-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    z-index:-4;
+}
+
 /* ================= LOADER ================= */
 .loader{
     position:fixed;
@@ -25,114 +47,35 @@ body{
     align-items:center;
     justify-content:center;
     z-index:9999;
-    overflow:hidden;
+    transition:.5s ease;
 }
 .loader h2{
     letter-spacing:2px;
-    font-size:16px;
-    opacity:.9;
-    margin-bottom:20px;
-    text-shadow:0 0 10px rgba(255,255,255,.5);
+    font-size:15px;
+    margin-bottom:18px;
     animation:glow 2s ease-in-out infinite alternate;
 }
 @keyframes glow{
-    from{text-shadow:0 0 10px rgba(255,255,255,.5);}
-    to{text-shadow:0 0 20px rgba(255,255,255,.8), 0 0 30px rgba(255,255,255,.6);}
+    from{text-shadow:0 0 8px rgba(255,255,255,.4);}
+    to{text-shadow:0 0 18px rgba(255,255,255,.9);}
 }
 .progress-box{
-    width:350px;
+    width:320px;
     height:8px;
     background:#111;
     border:1px solid #333;
     border-radius:4px;
     overflow:hidden;
-    box-shadow:inset 0 0 10px rgba(0,0,0,.5);
 }
 .progress-fill{
     height:100%;
     width:0%;
     background:linear-gradient(90deg,#777,#fff,#777);
-    box-shadow:0 0 10px rgba(255,255,255,.3);
-    animation:pulse 1s ease-in-out infinite;
-}
-@keyframes pulse{
-    0%,100%{box-shadow:0 0 10px rgba(255,255,255,.3);}
-    50%{box-shadow:0 0 20px rgba(255,255,255,.5);}
 }
 .percent{
-    margin-top:15px;
+    margin-top:14px;
     font-size:14px;
     opacity:.8;
-    text-shadow:0 0 5px rgba(255,255,255,.5);
-}
-
-/* ================= BACKGROUND ================= */
-.bg-image{
-    position:fixed;
-    inset:0;
-    background:url("WhatsApp Image 2025-12-23 at 8.05.07 PM.jpeg") center/cover no-repeat;
-    filter:brightness(1.15) contrast(1.05) grayscale(0.1);
-    z-index:-6;
-    animation:bgZoom 15s ease-in-out infinite alternate; /* New animation */
-}
-@keyframes bgZoom{
-    from{transform:scale(1);}
-    to{transform:scale(1.1);}
-}
-
-.overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.5);
-    z-index:-5;
-}
-
-/* ================= TECH ANIMATION ================= */
-.hex-layer{
-    position:fixed;
-    inset:0;
-    background:
-        repeating-linear-gradient(60deg,rgba(255,255,255,.08) 0 2px,transparent 2px 60px),
-        repeating-linear-gradient(-60deg,rgba(255,255,255,.08) 0 2px,transparent 2px 60px);
-    animation:hexMove 6s linear infinite;
-    z-index:-4;
-}
-@keyframes hexMove{
-    from{background-position:0 0,0 0}
-    to{background-position:120px 120px,-120px 120px}
-}
-
-.energy-wave{
-    position:fixed;
-    inset:-40%;
-    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.12) 50%,transparent 70%);
-    animation:wave 4s linear infinite;
-    z-index:-3;
-}
-@keyframes wave{
-    from{transform:translateX(-40%)}
-    to{transform:translateX(40%)}
-}
-
-/* Additional Lighting Effects - Subtle Particles */
-.particle-container{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:-2;
-}
-.particle{
-    position:absolute;
-    width:1px;
-    height:1px;
-    background:#fff;
-    border-radius:50%;
-    opacity:.4;
-    animation:particleFloat 12s linear infinite;
-}
-@keyframes particleFloat{
-    from{transform:translateY(100vh) rotate(0deg); opacity:.4;}
-    to{transform:translateY(-100px) rotate(360deg); opacity:0;}
 }
 
 /* ================= HERO ================= */
@@ -153,11 +96,7 @@ body{
     font-weight:700;
     transform-style:preserve-3d;
     text-shadow:0 30px 60px rgba(0,0,0,.9);
-    animation:textGlow 3s ease-in-out infinite alternate;
-}
-@keyframes textGlow{
-    from{text-shadow:0 30px 60px rgba(0,0,0,.9);}
-    to{text-shadow:0 30px 60px rgba(0,0,0,.9), 0 0 20px rgba(255,255,255,.2);}
+    transition:.15s;
 }
 .title-3d span{position:absolute;inset:0}
 
@@ -173,10 +112,9 @@ body{
 .title-3d .d3{color:#2a2a2a;transform:translateZ(0)}
 
 .hero p{
-    margin-top:20px;
-    opacity:.8;
+    margin-top:18px;
+    opacity:.7;
     font-size:18px;
-    text-shadow:0 0 10px rgba(255,255,255,.5);
 }
 
 /* ================= CONTENT ================= */
@@ -190,12 +128,12 @@ body{
 }
 
 .academic{
-    max-width:1000px;
-    width:100%;
+    max-width:900px;
+    width:90%;
     position:relative;
     opacity:0;
-    transform:translateY(100px);
-    transition:1.2s cubic-bezier(.19,1,.22,1);
+    transform:translateY(80px);
+    transition:1.1s cubic-bezier(.19,1,.22,1);
 }
 .academic.show{
     opacity:1;
@@ -203,75 +141,67 @@ body{
 }
 .academic img{
     width:100%;
-    border-radius:16px;
-    box-shadow:0 40px 80px rgba(0,0,0,.7), 0 0 20px rgba(255,255,255,.1);
+    border-radius:14px;
+    box-shadow:0 40px 80px rgba(0,0,0,.85);
 }
 
-/* ================= HIGH-TECH BUTTON ================= */
+/* ================= BUTTON ================= */
 .tech-btn{
     position:absolute;
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    padding:14px 42px;
+    padding:14px 38px;
     color:#fff;
     text-decoration:none;
-    letter-spacing:1.5px;
-    font-size:16px;
+    letter-spacing:1.2px;
+    font-size:15px;
     font-weight:600;
-    border:1px solid rgba(255,255,255,.6);
-    background:rgba(0,0,0,.6);
+    border:1px solid rgba(255,255,255,.5);
+    background:rgba(0,0,0,.8);
+    transition:.35s ease;
     overflow:hidden;
-    transition:.4s;
-    box-shadow:0 0 15px rgba(255,255,255,.2);
 }
-
-/* SCAN LINE */
 .tech-btn::before{
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.6) 50%,transparent 70%);
+    background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.5) 50%,transparent 70%);
     transform:translateX(-100%);
-    animation:scanBtn 3s linear infinite;
+    animation:scan 3s linear infinite;
 }
-@keyframes scanBtn{
-    from{transform:translateX(-100%)}
+@keyframes scan{
     to{transform:translateX(100%)}
 }
-
-/* HOVER */
 .tech-btn:hover{
-    box-shadow:0 0 30px rgba(255,255,255,.4), inset 0 0 20px rgba(255,255,255,.1);
-    transform:translate(-50%,-50%) scale(1.1);
-    background:rgba(0,0,0,.8);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-    .tech-btn{
-        opacity:1;
-        transform:translate(-50%,-50%);
-    }
-    .title-3d{
-        font-size:36px;
-    }
-    .hero p{
-        font-size:16px;
-    }
+    transform:translate(-50%,-50%) scale(1.08);
+    box-shadow:0 0 25px rgba(255,255,255,.4);
 }
 
 /* ================= FOOTER ================= */
 .site-footer{
     text-align:center;
-    padding:30px;
+    padding:28px;
     opacity:.6;
-    text-shadow:0 0 5px rgba(255,255,255,.3);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+    .title-3d{font-size:34px}
+    .hero p{font-size:16px}
 }
 </style>
 </head>
 
 <body>
+
+<!-- VIDEO BACKGROUND -->
+<div class="video-bg">
+    <video autoplay muted loop playsinline>
+        <source src="bg.mp4" type="video/mp4">
+    </video>
+</div>
+<div class="video-overlay"></div>
 
 <!-- LOADER -->
 <div class="loader" id="loader">
@@ -281,15 +211,6 @@ body{
     </div>
     <div class="percent" id="percent">0%</div>
 </div>
-
-<!-- BACKGROUND -->
-<div class="bg-image"></div>
-<div class="overlay"></div>
-<div class="hex-layer"></div>
-<div class="energy-wave"></div>
-
-<!-- PARTICLE EFFECTS -->
-<div class="particle-container" id="particles"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -304,14 +225,11 @@ body{
 
 <div class="spacer"></div>
 
-<!-- ACADEMIC SECTION -->
+<!-- ACADEMIC -->
 <section class="section">
     <div class="academic" id="academic">
         <img src="Screenshot 2025-12-23 183350.png" alt="Academic Block">
-        <!-- 🔘 REDIRECT BUTTON -->
-        <a href="cg_calculator.html" class="tech-btn">
-            OPEN CG CALCULATOR →
-        </a>
+        <a href="cg_calculator.html" class="tech-btn">OPEN CG CALCULATOR →</a>
     </div>
 </section>
 
@@ -320,52 +238,57 @@ body{
 </footer>
 
 <script>
-/* LOADER */
-let load=0;
-const bar=document.getElementById("bar");
-const percent=document.getElementById("percent");
-const loader=document.getElementById("loader");
+/* ================= LOADER ================= */
+let load = 0;
+const bar = document.getElementById("bar");
+const percent = document.getElementById("percent");
+const loader = document.getElementById("loader");
 
-const interval=setInterval(()=>{
-    load+=Math.random()*10 + 2; // Random increment for realism
-    if(load>100) load=100;
-    bar.style.width=load+"%";
-    percent.textContent=Math.floor(load)+"%";
-    if(load>=100){
-        clearInterval(interval);
-        setTimeout(()=>{loader.style.display="none";},500);
+const loaderInterval = setInterval(() => {
+    load += 5;
+    if (load >= 100) {
+        load = 100;
+        bar.style.width = "100%";
+        percent.textContent = "100%";
+        clearInterval(loaderInterval);
+
+        setTimeout(() => {
+            loader.style.opacity = "0";
+            setTimeout(() => loader.remove(), 500);
+        }, 300);
+    } else {
+        bar.style.width = load + "%";
+        percent.textContent = load + "%";
     }
-},80);
+}, 80);
 
-/* PARTICLE EFFECTS */
-const particlesContainer=document.getElementById("particles");
-for(let i=0;i<50;i++){
-    const particle=document.createElement("div");
-    particle.className="particle";
-    particle.style.left=Math.random()*100+"%";
-    particle.style.animationDelay=Math.random()*10+"s";
-    particlesContainer.appendChild(particle);
-}
+/* FAILSAFE */
+window.addEventListener("load", () => {
+    setTimeout(() => {
+        if (loader) {
+            loader.style.opacity = "0";
+            setTimeout(() => loader.remove(), 400);
+        }
+    }, 1200);
+});
 
 /* SCROLL REVEAL */
-const academic=document.getElementById("academic");
-window.addEventListener("scroll",()=>{
-    if(academic.getBoundingClientRect().top < window.innerHeight-120){
+const academic = document.getElementById("academic");
+window.addEventListener("scroll", () => {
+    if (academic.getBoundingClientRect().top < window.innerHeight - 120) {
         academic.classList.add("show");
     }
 });
 
 /* 3D TEXT TILT */
-const title=document.getElementById("title3d");
-document.addEventListener("mousemove",e=>{
-    const x=(e.clientX/window.innerWidth-.5)*15;
-    const y=(e.clientY/window.innerHeight-.5)*15;
-    title.style.transform=`rotateY(${x}deg) rotateX(${-y}deg)`;
+const title = document.getElementById("title3d");
+document.addEventListener("mousemove", e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 15;
+    const y = (e.clientY / window.innerHeight - 0.5) * 15;
+    title.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
 });
 </script>
 
 </body>
-
 </html>
-
 
